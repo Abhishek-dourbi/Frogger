@@ -5,6 +5,7 @@ const logsLeft = document.querySelectorAll('.log-left');
 const logsRight = document.querySelectorAll('.log-right');
 const carsLeft = document.querySelectorAll('.car-left');
 const carsRight = document.querySelectorAll('.car-right');
+const resultDisplay = document.querySelector('#result');
 
 let currIndex = 76;
 const width = 9;
@@ -31,7 +32,6 @@ function moveFrog(e) {
     squares[currIndex].classList.add('frog');
     checkResult();
 }
-document.addEventListener('keyup', moveFrog);
 
 function autoMoveElements() {
     // Update Timer
@@ -152,17 +152,25 @@ function checkResult() {
         currentSquare.classList.contains('c1') ||
         currentTime <= 0
     ) {
-        alert('YOU LOSE');
+        resultDisplay.textContent = 'YOU LOSE';
         squares[currIndex].classList.remove('frog');
         clearInterval(timerId);
         document.removeEventListener('keyup', moveFrog);
     }
 
     if(currentSquare.classList.contains('ending-block')) {
-        alert('YOU WIN');
+        resultDisplay.textContent = 'YOU WIN';
         clearInterval(timerId);
         document.removeEventListener('keyup', moveFrog);
     }
 }
 
-timerId = setInterval(autoMoveElements, 1000);
+startPauseButton.addEventListener('click', () => {
+    if(timerId) {
+        clearInterval(timerId);
+        timerId = null;
+    } else {
+        timerId = setInterval(autoMoveElements, 1000);
+        document.addEventListener('keyup', moveFrog);
+    }
+})

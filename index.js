@@ -9,6 +9,7 @@ const carsRight = document.querySelectorAll('.car-right');
 let currIndex = 76;
 const width = 9;
 let timerId;
+let currentTime = 20;
 
 function moveFrog(e) {
     squares[currIndex].classList.remove('frog');
@@ -33,6 +34,10 @@ function moveFrog(e) {
 document.addEventListener('keyup', moveFrog);
 
 function autoMoveElements() {
+    // Update Timer
+    currentTime--;
+    timeLeftDisplay.textContent = currentTime;
+
     // move Logs
     logsLeft.forEach(moveLogLeft);
     logsRight.forEach(moveLogRight);
@@ -144,7 +149,8 @@ function checkResult() {
     if(
         currentSquare.classList.contains('l4') || 
         currentSquare.classList.contains('l5') ||
-        currentSquare.classList.contains('c1')
+        currentSquare.classList.contains('c1') ||
+        currentTime <= 0
     ) {
         alert('YOU LOSE');
         squares[currIndex].classList.remove('frog');

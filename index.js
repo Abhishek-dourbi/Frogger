@@ -3,6 +3,8 @@ const startPauseButton = document.querySelector('#start-pause-button');
 const squares = document.querySelectorAll('.grid div');
 const logsLeft = document.querySelectorAll('.log-left');
 const logsRight = document.querySelectorAll('.log-right');
+const carsLeft = document.querySelectorAll('.car-left');
+const carsRight = document.querySelectorAll('.car-right');
 
 let currIndex = 76;
 const width = 9;
@@ -28,9 +30,14 @@ function moveFrog(e) {
 }
 document.addEventListener('keyup', moveFrog);
 
-function autoMoveLogs() {
+function autoMoveElements() {
+    // move Logs
     logsLeft.forEach(moveLogLeft);
     logsRight.forEach(moveLogRight);
+
+    // move cars
+    carsLeft.forEach(moveCarsLeft);
+    carsRight.forEach(moveCarsRight);
 }
 
 function moveLogLeft(logLeft) {
@@ -91,4 +98,42 @@ function moveLogRight(logRight) {
     }
 }
 
-setInterval(autoMoveLogs, 1000);
+function moveCarsRight(carRight) {
+    switch(true) {
+        case carRight.classList.contains('c1'):
+            carRight.classList.remove('c1');
+            carRight.classList.add('c2');
+            break;
+            
+        case carRight.classList.contains('c2'):
+            carRight.classList.remove('c2');
+            carRight.classList.add('c3');
+            break;
+
+        case carRight.classList.contains('c3'):
+            carRight.classList.remove('c3');
+            carRight.classList.add('c1');
+            break;
+    }
+}
+
+function moveCarsLeft(carLeft) {
+    switch(true) {
+        case carLeft.classList.contains('c1'):
+            carLeft.classList.remove('c1');
+            carLeft.classList.add('c3');
+            break;
+            
+        case carLeft.classList.contains('c2'):
+            carLeft.classList.remove('c2');
+            carLeft.classList.add('c1');
+            break;
+
+        case carLeft.classList.contains('c3'):
+            carLeft.classList.remove('c3');
+            carLeft.classList.add('c2');
+            break;
+    }
+}
+
+setInterval(autoMoveElements, 1000);

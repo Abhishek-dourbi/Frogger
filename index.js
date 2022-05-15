@@ -10,16 +10,16 @@ function moveFrog(e) {
 
     switch(e.key) {
         case 'ArrowLeft':
-            currIndex--;
+            if(currIndex % width) currIndex--
             break;
         case 'ArrowRight':
-            currIndex++;
+            if(currIndex % width < width - 1) currIndex++;
             break;
         case 'ArrowUp':
-            currIndex -= width;
+            if(currIndex >= width) currIndex -= width;
             break;
         case 'ArrowDown':
-            currIndex += width;
+            if(currIndex + width < width * width) currIndex += width;
             break;
     }
     squares[currIndex].classList.add('frog');
